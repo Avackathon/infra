@@ -1,0 +1,3 @@
+validator01 ansible_host=51.15.235.178 ansible_user=root
+[avalanche_nodes]
+validator01
