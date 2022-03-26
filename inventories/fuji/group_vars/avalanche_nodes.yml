@@ -2,6 +2,7 @@
 # See the file LICENSE for licensing terms.
 ---
 avalanchego_version: 1.7.5
+avalanchego_http_host: 10.194.77.135
 avalanchego_network_id: fuji
 # AvalancheGo will generate new certs if needed
 avalanchego_use_existing_certs: no
@@ -9,7 +10,7 @@ avalanchego_use_existing_certs: no
 avalanchego_snow_sample_size: 20
 avalanchego_snow_quorum_size: 14
 # Whitelisting the SpacesVM subnet
-avalanche_whitelisted_subnets: Ai42MkKqk8yjXFCpoHXw7rdTWSHiKEMqh5h8gbxwjgkCUfkrk
+avalanche_whitelisted_subnets: Ai42MkKqk8yjXFCpoHXw7rdTWSHiKEMqh5h8gbxwjgkCUfkrk,2R5FfG6nKERKEK9nSidkQv1nGrKBgkUocarNKwZMuHAAo5M65s
 # Installing the SpacesVM
 avalanchego_vms_install:
   - spacesvm=0.0.2

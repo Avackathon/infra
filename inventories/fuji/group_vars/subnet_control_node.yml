@@ -1,8 +1,11 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_http_host: 192.168.10.11
+avalanchego_http_host: 10.194.77.135
 
+subnet_id: 2R5FfG6nKERKEK9nSidkQv1nGrKBgkUocarNKwZMuHAAo5M65s
+subnet_control_keys:
+  - P-fuji1ara7jwu7kgzxzf33zry39u5jveyhvps8grhcv8
 subnet_control_keys_threshold: 1
 subnet_validators_weight: 1
 
@@ -37,10 +40,6 @@ create_blockchains:
             blockGasCostStep: 200000
         alloc:
           8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC:
-            balance: "0x295BE96E64066972000000"
-          f39fd6e51aad88f6f4ce6ab8827279cfffb92266:
-            balance: "0x295BE96E64066972000000"
-          70997970c51812dc3a010c7d01b50e0d17dc79c8:
             balance: "0x295BE96E64066972000000"
         nonce: "0x0"
         timestamp: "0x0"

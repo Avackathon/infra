@@ -1,3 +1,10 @@
 validator01 ansible_host=51.15.235.178 ansible_user=root
+
 [avalanche_nodes]
+validator01
+
+[subnet_control_node]
+validator01
+
+[subnet_validators]
 validator01

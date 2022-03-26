@@ -1,17 +1,74 @@
 # SubNav Infra
 
+This repo leverages [Ansible Avalanche Collection](https://github.com/Nuttymoon/ansible-avalanche-collection) to deploy a Avalanche resources.
+
 ## Fuji validator
+
+- Provision the Fuji validator (install AvalancheGo and VMs)
+- Create a subnet and add the validator to the `whitelisted-subnets` list
+- Create a [subnet-evm](https://github.com/ava-labs/subnet-evm) blockchain in the subnet
+
+### With Ansible >= 2.11
+
+```sh
+# Install Ansible collection
+ansible-galaxy collection install git+https://github.com/Nuttymoon/ansible-avalanche-collection.git
+
+# Bootstrap network
+ansible-playbook nuttymoon.avalanche.provision_nodes -i inventories/fuji
+
+# Create a user on the validator and create and address for this user
+read -s CONTROL_PASS
+curl -X POST --data "{
+    \"jsonrpc\": \"2.0\",
+    \"id\"     : 1,
+    \"method\" : \"keystore.createUser\",
+    \"params\" : {
+        \"username\": \"subnav_admin\",
+        \"password\": \"$CONTROL_PASS\"
+    }
+}" -H 'content-type:application/json;' 51.15.235.178:9650/ext/keystore
+curl -s -X POST --data "{
+    \"jsonrpc\": \"2.0\",
+    \"id\"     : 1,
+    \"method\" : \"platform.createAddress\",
+    \"params\" : {
+      \"username\": \"subnav_admin\",
+      \"password\": \"$CONTROL_PASS\"
+    }
+}" -H 'content-type:application/json;' 51.15.235.178:9650/ext/bc/P
+# P-fuji1ara7jwu7kgzxzf33zry39u5jveyhvps8grhcv8
+curl -X POST --data "{
+    \"jsonrpc\":\"2.0\",
+    \"id\"     :1,
+    \"method\" :\"platform.exportKey\",
+    \"params\" :{
+        \"username\" :\"subnav_admin\",
+        \"password\": \"$CONTROL_PASS\",
+        \"address\": \"P-fuji1ara7jwu7kgzxzf33zry39u5jveyhvps8grhcv8\"
+    }
+}" -H 'content-type:application/json' 51.15.235.178:9650/ext/bc/P
+# [REDACTED]
+
+# MANUAL STEP: Fund account through Faucet
+
+ansible-playbook create_subnet -i inventories/local \
+  --extra-vars '{"subnet_control_keys": ["P-fuji1ara7jwu7kgzxzf33zry39u5jveyhvps8grhcv8"]}'
+
+# Whitelist subnet
+ansible-playbook nuttymoon.avalanche.bootstrap_local_network -i inventories/local \
+    -e avalanche_whitelisted_subnets=2omKR2BxV5AyuEuQUqEwGBkPdHBGiZFoZPdNSpJ6JbhguGPPVz
+
+# Create blockchain
+ansible-playbook nuttymoon.avalanche.create_local_blockchains -i inventories/local -e subnet_id=2omKR2BxV5AyuEuQUqEwGBkPdHBGiZFoZPdNSpJ6JbhguGPPVz
+```
 
 ## Local test network with Vagrant, Ansible and AvalancheGo
 
-The steps bellow leverages [Ansible Avalanche Collection](https://github.com/Nuttymoon/ansible-avalanche-collection) to deploy a local virtual machines based Avalanche environment.
-
-The main steps are:
-
 - Create 5 virtual machines with [Vagrant](https://www.vagrantup.com/)
 - Bootstrap a local Avalanche cluster with [Avalanche Go](https://github.com/ava-labs/avalanchego)
-- Create a subnet and add it to the `whitelisted-subnets` of each node.
-- Create a [subnet-evm](https://github.com/ava-labs/subnet-evm) blockchain in the subnet.
+- Create a subnet and add it to the `whitelisted-subnets` of each node
+- Create a [subnet-evm](https://github.com/ava-labs/subnet-evm) blockchain in the subnet
 
 ### With Ansible >= 2.11
 
