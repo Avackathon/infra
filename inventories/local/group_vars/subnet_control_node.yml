@@ -7,11 +7,11 @@ subnet_control_keys_threshold: 1
 subnet_validators_weight: 1
 
 create_blockchains:
-  - blockchain_vm: subnetevm
-    blockchain_name: SubNav Chain
-    blockchain_aliases:
+  - vm: subnetevm
+    name: SubNav Chain
+    aliases:
       - subnav
-    blockchain_genesis_params:
+    genesis_params:
       genesisData:
         config:
           chainId: 13213
