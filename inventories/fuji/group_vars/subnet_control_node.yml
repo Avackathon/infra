@@ -3,11 +3,11 @@
 ---
 avalanchego_http_host: 10.194.77.135
 
-subnet_id: 2R5FfG6nKERKEK9nSidkQv1nGrKBgkUocarNKwZMuHAAo5M65s
+subnet_id: hZFzPzQMPwzmujE7U6dtCPqPk39x75vS4Vq3Rsw5p2pZcsXEN
 subnet_control_keys:
   - P-fuji1ara7jwu7kgzxzf33zry39u5jveyhvps8grhcv8
 subnet_control_keys_threshold: 1
-subnet_validators_weight: 1
+subnet_validators_weight: 20
 
 create_blockchains:
   - vm: subnetevm
